@@ -4,11 +4,11 @@ require "http/server"
 struct Orion::Middleware::MethodOverrideParam
   include Middleware
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : HTTP::Server::Context, chain)
     request = cxt.request
     override_method = param_method?(request) || form_method?(request)
     request.method = override_method if override_method
-    yield cxt
+    chain.call cxt
   end
 
   private def param_method?(req : HTTP::Request)

@@ -3,6 +3,9 @@ struct Orion::Middleware::Chain
 
   @links: Array(Link) = [] of Link
 
+  def initialize
+  end
+
   def initialize(links, last_link : HTTP::Handler::Proc? = nil)
     links.each do |link|
       @links << (link.is_a?(HTTP::Handler) ? link.dup : link)
@@ -15,9 +18,7 @@ struct Orion::Middleware::Chain
   end
 
   def call_link(middleware : Middleware, c : HTTP::Server::Context)
-    middleware.call(c) do |c|
-      self.call(c)
-    end
+    middleware.call(c, self)
   end
 
   def call_link(proc : HTTP::Handler::Proc, c : HTTP::Server::Context)

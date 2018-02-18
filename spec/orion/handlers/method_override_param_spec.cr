@@ -4,7 +4,7 @@ describe Orion::Middleware::MethodOverrideParam do
   context "given a query param" do
     it "should set override the method" do
       context = mock_context(:get, "/?_method=POST")
-      Orion::Middleware::MethodOverrideParam.new.call(context) {}
+      Orion::Middleware::MethodOverrideParam.new.call(context)
       context.request.method.should eq "POST"
     end
   end
@@ -17,7 +17,7 @@ describe Orion::Middleware::MethodOverrideParam do
       builder.finish
       io.rewind
       context = mock_context(:get, "/", body: io, headers: { "Content-Type" => "multipart/form-data; boundary=\"#{builder.boundary}\"" })
-      Orion::Middleware::MethodOverrideParam.new.call(context) {}
+      Orion::Middleware::MethodOverrideParam.new.call(context)
       context.request.method.should eq "POST"
     end
   end

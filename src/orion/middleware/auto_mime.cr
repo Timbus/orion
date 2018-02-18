@@ -2,11 +2,11 @@
 struct Orion::Middleware::AutoMime
   include Middleware
 
-  def call(cxt : HTTP::Server::Context)
+  def call(cxt : HTTP::Server::Context, chain)
     if !cxt.request.headers["Accept"]? && (mime_type = type_from_path?(cxt.request))
       cxt.request.headers["Accept"] = mime_type
     end
-    yield cxt
+    chain.call cxt
   end
 
   private def type_from_path?(req : HTTP::Request)
