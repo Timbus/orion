@@ -185,21 +185,8 @@ module Orion::Router::Routes
       %leaf.constraints.unshift ::Orion::ParamsConstraint.new({{ constraints }}.to_h)
     {% end %}
 
-    {% if content_type %} # Define the content type constraint
-      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ content_type }})
-    {% end %}
-
-    {% if type %} # Define the content type and accept constraint
-      %leaf.constraints.unshift ::Orion::ContentTypeConstraint.new({{ type }})
-      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ type }})
-    {% end %}
-
     {% if format %} # Define the format constraint
       %leaf.constraints.unshift ::Orion::FormatConstraint.new({{ format }})
-    {% end %}
-
-    {% if accept %} # Define the content type constraint
-      %leaf.constraints.unshift ::Orion::AcceptConstraint.new({{ accept }})
     {% end %}
 
     {% if via != :all && !via.nil? %} # Define the method constraint

@@ -11,21 +11,8 @@ module Orion::Router::Resources
     scope {{ "/#{name}" }} do
       CONTROLLER = {{ controller }}
 
-      {% if content_type %} # Define the content type constraint
-        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
-      {% end %}
-
-      {% if type %} # Define the content type and accept constraint
-        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ type }})
-        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ type }})
-      {% end %}
-
       {% if format %} # Define the format constraint
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})
-      {% end %}
-
-      {% if accept %} # Define the accept constraint
-        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ accept }})
       {% end %}
 
       scope helper_prefix: {{ underscore_name }} do
@@ -62,21 +49,8 @@ module Orion::Router::Resources
     scope {{ "/#{name}" }}, helper_prefix: {{ underscore_name }} do
       CONTROLLER = {{ controller }}
 
-      {% if content_type %} # Define the content type constraint
-        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ content_type }})
-      {% end %}
-
-      {% if type %} # Define the content type and accept constraint
-        CONSTRAINTS << ::Orion::ContentTypeConstraint.new({{ type }})
-        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ type }})
-      {% end %}
-
       {% if format %} # Define the format constraint
         CONSTRAINTS << ::Orion::FormatConstraint.new({{ format }})
-      {% end %}
-
-      {% if accept %} # Define the accept constraint
-        CONSTRAINTS << ::Orion::AcceptConstraint.new({{ accept }})
       {% end %}
 
       resource_action(:get, "/new", :new, only: {{ only }}, except: {{ except }}, helper: { prefix: "new" })

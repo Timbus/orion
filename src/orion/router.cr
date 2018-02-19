@@ -94,8 +94,8 @@ abstract class Orion::Router
 
   def initialize(autoclose : Bool = true)
     use Handlers::AutoClose.new if autoclose
-    use Handlers::MethodOverrideHeader
-    use Handlers::AutoMime.new
+    # use Handlers::MethodOverrideHeader
+    # use Handlers::AutoMime.new
     use Handlers::Meta.new
     @app = build
   end
